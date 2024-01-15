@@ -38,6 +38,7 @@ const shoppingCartProducts = [...Array(roll(1, 10))].map((_, i) => ({
   id: i,
   title: fruits[roll(0, fruits.length)],
   price: roll(1, 10, true).toFixed(2),
+  weight: roll(3, 60, true).toFixed(2),
   quantity: roll(1, 8),
 }))
 
@@ -47,6 +48,11 @@ const cartTotal = shoppingCartProducts
     return acc + parseFloat(product.price) * product.quantity
   }, 0)
   .toFixed(2)
+
+// Calculate the total weight of the cart
+const cartWeightTotal = shoppingCartProducts.reduce((acc, product) => {
+  return acc + parseFloat(product.weight) * product.quantity
+}, 0)
 
 // Get Tax rate between 3% and 10% - rounding to the nearest 10th
 const taxRate = roll(3, 10, true).toFixed(1)
